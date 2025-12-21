@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "transcript-insightful"
+version = "2025.12.21185930"
+description = "transcript-insightful extracts and structures key insights from video transcripts, delivering concise themes and implications."
+readme = "README.md"
+authors = [{ name = "transcript-insightful", email = "hi@eugene.plus" }]
+requires-python = ">=3.9"
+dependencies = [
+  "langchain-llm7>=0.0.0",
+  "llmatch-messages>=0.0.0",
+  "langchain-core>=0.3.0",
+]
+license = { text = "MIT" }
+
+[project.urls]
+Homepage = "https://github.com/chigwell/transcript-insightful"
