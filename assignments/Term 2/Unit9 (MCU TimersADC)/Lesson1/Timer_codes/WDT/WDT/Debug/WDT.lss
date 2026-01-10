@@ -1,0 +1,166 @@
+
+WDT.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000a0  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  000000f4  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  000000f4  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000124  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000030  00000000  00000000  00000160  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000150  00000000  00000000  00000190  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000000ea  00000000  00000000  000002e0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000320  00000000  00000000  000003ca  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000044  00000000  00000000  000006ec  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00005ed0  00000000  00000000  00000730  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_ranges 00000020  00000000  00000000  00006600  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_macro  00000237  00000000  00000000  00006620  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	29 c0       	rjmp	.+82     	; 0x54 <__ctors_end>
+   2:	00 00       	nop
+   4:	2f c0       	rjmp	.+94     	; 0x64 <__bad_interrupt>
+   6:	00 00       	nop
+   8:	2d c0       	rjmp	.+90     	; 0x64 <__bad_interrupt>
+   a:	00 00       	nop
+   c:	2b c0       	rjmp	.+86     	; 0x64 <__bad_interrupt>
+   e:	00 00       	nop
+  10:	29 c0       	rjmp	.+82     	; 0x64 <__bad_interrupt>
+  12:	00 00       	nop
+  14:	27 c0       	rjmp	.+78     	; 0x64 <__bad_interrupt>
+  16:	00 00       	nop
+  18:	25 c0       	rjmp	.+74     	; 0x64 <__bad_interrupt>
+  1a:	00 00       	nop
+  1c:	23 c0       	rjmp	.+70     	; 0x64 <__bad_interrupt>
+  1e:	00 00       	nop
+  20:	21 c0       	rjmp	.+66     	; 0x64 <__bad_interrupt>
+  22:	00 00       	nop
+  24:	1f c0       	rjmp	.+62     	; 0x64 <__bad_interrupt>
+  26:	00 00       	nop
+  28:	1d c0       	rjmp	.+58     	; 0x64 <__bad_interrupt>
+  2a:	00 00       	nop
+  2c:	1b c0       	rjmp	.+54     	; 0x64 <__bad_interrupt>
+  2e:	00 00       	nop
+  30:	19 c0       	rjmp	.+50     	; 0x64 <__bad_interrupt>
+  32:	00 00       	nop
+  34:	17 c0       	rjmp	.+46     	; 0x64 <__bad_interrupt>
+  36:	00 00       	nop
+  38:	15 c0       	rjmp	.+42     	; 0x64 <__bad_interrupt>
+  3a:	00 00       	nop
+  3c:	13 c0       	rjmp	.+38     	; 0x64 <__bad_interrupt>
+  3e:	00 00       	nop
+  40:	11 c0       	rjmp	.+34     	; 0x64 <__bad_interrupt>
+  42:	00 00       	nop
+  44:	0f c0       	rjmp	.+30     	; 0x64 <__bad_interrupt>
+  46:	00 00       	nop
+  48:	0d c0       	rjmp	.+26     	; 0x64 <__bad_interrupt>
+  4a:	00 00       	nop
+  4c:	0b c0       	rjmp	.+22     	; 0x64 <__bad_interrupt>
+  4e:	00 00       	nop
+  50:	09 c0       	rjmp	.+18     	; 0x64 <__bad_interrupt>
+	...
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+  60:	0c d0       	rcall	.+24     	; 0x7a <main>
+  62:	1c c0       	rjmp	.+56     	; 0x9c <_exit>
+
+00000064 <__bad_interrupt>:
+  64:	cd cf       	rjmp	.-102    	; 0x0 <__vectors>
+
+00000066 <WDT_ON>:
+void WDT_OFF(void);
+
+
+void WDT_ON(void)
+{
+	WDTCR = (1 << WDP0) | (1 << WDP1) | (1 << WDP2) | (1 << WDE);
+  66:	8f e0       	ldi	r24, 0x0F	; 15
+  68:	81 bd       	out	0x21, r24	; 33
+	WDTCR &= ~(1<<WDP0);
+  6a:	81 b5       	in	r24, 0x21	; 33
+  6c:	8e 7f       	andi	r24, 0xFE	; 254
+  6e:	81 bd       	out	0x21, r24	; 33
+  70:	08 95       	ret
+
+00000072 <WDT_OFF>:
+}
+
+void WDT_OFF(void)
+{
+	WDTCR = (1<<WDTOE)|(1<<WDE);
+  72:	88 e1       	ldi	r24, 0x18	; 24
+  74:	81 bd       	out	0x21, r24	; 33
+	WDTCR = 0x00;
+  76:	11 bc       	out	0x21, r1	; 33
+  78:	08 95       	ret
+
+0000007a <main>:
+}
+
+int main(void)
+{
+	LED_DDR |= 1<<LED_PIN;
+  7a:	a0 9a       	sbi	0x14, 0	; 20
+	
+    while (1) 
+    {
+		WDT_ON();
+		TOGGLE_BIT(LED_PORT, 0);
+  7c:	c1 e0       	ldi	r28, 0x01	; 1
+{
+	LED_DDR |= 1<<LED_PIN;
+	
+    while (1) 
+    {
+		WDT_ON();
+  7e:	f3 df       	rcall	.-26     	; 0x66 <WDT_ON>
+		TOGGLE_BIT(LED_PORT, 0);
+  80:	85 b3       	in	r24, 0x15	; 21
+  82:	8c 27       	eor	r24, r28
+  84:	85 bb       	out	0x15, r24	; 21
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  86:	2f ef       	ldi	r18, 0xFF	; 255
+  88:	88 ef       	ldi	r24, 0xF8	; 248
+  8a:	95 e1       	ldi	r25, 0x15	; 21
+  8c:	21 50       	subi	r18, 0x01	; 1
+  8e:	80 40       	sbci	r24, 0x00	; 0
+  90:	90 40       	sbci	r25, 0x00	; 0
+  92:	e1 f7       	brne	.-8      	; 0x8c <main+0x12>
+  94:	00 c0       	rjmp	.+0      	; 0x96 <main+0x1c>
+  96:	00 00       	nop
+		_delay_ms(900);
+		WDT_OFF();
+  98:	ec df       	rcall	.-40     	; 0x72 <WDT_OFF>
+    }
+  9a:	f1 cf       	rjmp	.-30     	; 0x7e <main+0x4>
+
+0000009c <_exit>:
+  9c:	f8 94       	cli
+
+0000009e <__stop_program>:
+  9e:	ff cf       	rjmp	.-2      	; 0x9e <__stop_program>
